@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>LinkTrim - URL Shortener</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+</head>
+<body>
+    
+    <div class="container">
+        <h1>✂️ LinkTrim</h1>
+        
+        <form method="POST" action="/">
+            <input type="url" name="long_url" placeholder="Paste your long link here (e.g., https://github.com/)" required>
+            <button type="submit">Shorten</button>
+        </form>
+
+        <hr style="border: none; border-top: 1px solid #e2e8f0; margin: 2rem 0;">
+        
+        <h2>📊 Analytics Dashboard</h2>
+        <table>
+            <thead>
+                <tr>
+                    <th>Original Destination</th>
+                    <th>Short Link</th>
+                    <th>Clicks</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for url in urls %}
+                <tr>
+                    <td style="max-width: 300px; white-space: nowrap; overflow: hidden; text-overflow: ellipsis;">
+                        {{ url[1] }}
+                    </td>
+                    <td><a href="/{{ url[2] }}" target="_blank">/{{ url[2] }}</a></td>
+                    <td><span class="badge">{{ url[3] }}</span></td>
+                </tr>
+                {% else %}
+                <tr>
+                    <td colspan="3" style="text-align: center; color: #64748b;">No links shortened yet! Be the first.</td>
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    </div>
+
+</body>
+</html>
